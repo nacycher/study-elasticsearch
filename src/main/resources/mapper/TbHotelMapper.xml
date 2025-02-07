@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lb.studyelasticsearch.mapper.TbHotelMapper">
+    
+    <resultMap type="TbHotel" id="TbHotelResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="address"    column="address"    />
+        <result property="price"    column="price"    />
+        <result property="score"    column="score"    />
+        <result property="brand"    column="brand"    />
+        <result property="city"    column="city"    />
+        <result property="starName"    column="star_name"    />
+        <result property="business"    column="business"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="Longitude"    column="Longitude"    />
+        <result property="pic"    column="pic"    />
+    </resultMap>
+
+    <sql id="selectTbHotelVo">
+        select id, name, address, price, score, brand, city, star_name, business, latitude, Longitude, pic from tb_hotel
+    </sql>
+
+    <select id="selectTbHotelList" parameterType="TbHotel" resultMap="TbHotelResult">
+        <include refid="selectTbHotelVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="score != null "> and score = #{score}</if>
+            <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="starName != null  and starName != ''"> and star_name like concat('%', #{starName}, '%')</if>
+            <if test="business != null  and business != ''"> and business = #{business}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="Longitude != null  and Longitude != ''"> and Longitude = #{Longitude}</if>
+            <if test="pic != null  and pic != ''"> and pic = #{pic}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbHotelById" parameterType="Long" resultMap="TbHotelResult">
+        <include refid="selectTbHotelVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbHotel" parameterType="TbHotel">
+        insert into tb_hotel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="price != null">price,</if>
+            <if test="score != null">score,</if>
+            <if test="brand != null and brand != ''">brand,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="starName != null">star_name,</if>
+            <if test="business != null">business,</if>
+            <if test="latitude != null and latitude != ''">latitude,</if>
+            <if test="Longitude != null and Longitude != ''">Longitude,</if>
+            <if test="pic != null">pic,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="price != null">#{price},</if>
+            <if test="score != null">#{score},</if>
+            <if test="brand != null and brand != ''">#{brand},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="starName != null">#{starName},</if>
+            <if test="business != null">#{business},</if>
+            <if test="latitude != null and latitude != ''">#{latitude},</if>
+            <if test="Longitude != null and Longitude != ''">#{Longitude},</if>
+            <if test="pic != null">#{pic},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbHotel" parameterType="TbHotel">
+        update tb_hotel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="brand != null and brand != ''">brand = #{brand},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="starName != null">star_name = #{starName},</if>
+            <if test="business != null">business = #{business},</if>
+            <if test="latitude != null and latitude != ''">latitude = #{latitude},</if>
+            <if test="Longitude != null and Longitude != ''">Longitude = #{Longitude},</if>
+            <if test="pic != null">pic = #{pic},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbHotelById" parameterType="Long">
+        delete from tb_hotel where id = #{id}
+    </delete>
+
+    <delete id="deleteTbHotelByIds" parameterType="String">
+        delete from tb_hotel where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,5 +1,6 @@
 package org.lb.studyelasticsearch.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author ruoyi
  * @date 2025-02-06
  */
+@TableName("tb_hotel")
 public class TbHotel
 {
     private static final long serialVersionUID = 1L;

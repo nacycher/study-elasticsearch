@@ -1,5 +1,6 @@
 package org.lb.studyelasticsearch.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.lb.studyelasticsearch.pojo.TbHotel;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author ruoyi
  * @date 2025-02-06
  */
-public interface TbHotelMapper 
+public interface TbHotelMapper
 {
     /**
      * 查询【请填写功能名称】
