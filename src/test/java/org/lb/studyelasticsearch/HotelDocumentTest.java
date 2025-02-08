@@ -2,7 +2,11 @@ package org.lb.studyelasticsearch;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.*;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -18,26 +22,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.lb.studyelasticsearch.constant.HotelConstant.HOST_URL;
+import static org.lb.studyelasticsearch.constant.HotelConstant.INDEX_NAME;
 
 /**
  * @description: RestClient文档curd测试
  */
 @SpringBootTest
 public class HotelDocumentTest {
-    private RestHighLevelClient restHighLevelClient;
-
     @Autowired
     private ITbHotelService hotelService;
+
+    private RestHighLevelClient restHighLevelClient;
+    private final Long TEST_DOCUMENT_ID = 5013L;
 
     @Test
     public void testInit() {
         System.out.println(restHighLevelClient);
     }
 
+    // 新增文档
     @Test
     public void testCreateIndex() throws Exception {
         // 根据id查询酒店数据
-        TbHotel tbHotel = hotelService.selectTbHotelById(5013L);
+        TbHotel tbHotel = hotelService.selectTbHotelById(TEST_DOCUMENT_ID);
         // 转换为文档对象
         TbHotelDocVo tbHotelDocVo = new TbHotelDocVo(tbHotel);
 
@@ -48,6 +55,48 @@ public class HotelDocumentTest {
         // 3.发送请求
         restHighLevelClient.index(request, RequestOptions.DEFAULT);
     }
+
+    // 查询文档
+    @Test
+    public void testGetDocument() throws Exception {
+        // 1.创建请求对象
+        GetRequest request = new GetRequest(INDEX_NAME, TEST_DOCUMENT_ID.toString());
+        // 2.获取返回结果
+        GetResponse response = restHighLevelClient.get(request, RequestOptions.DEFAULT);
+        // 3.获取文档内容
+        String json = response.getSourceAsString();
+        // 4. 反序列化
+        TbHotelDocVo tbHotelDocVo = JSON.parseObject(json, TbHotelDocVo.class);
+
+        System.out.println(tbHotelDocVo);
+    }
+
+    /**
+     * 修改文档-全量修改，删除旧文档，新增新文档
+     **/
+    @Test
+    public void testUpdateDocumentAll() throws Exception {
+
+    }
+
+    // 修改文档-局部修改
+    @Test
+    public void testUpdateDocumentPartial() throws Exception {
+        UpdateRequest request = new UpdateRequest(INDEX_NAME, TEST_DOCUMENT_ID.toString());
+        request.doc(
+                "price", 300,
+                "city", "成都");
+        restHighLevelClient.update(request, RequestOptions.DEFAULT);
+    }
+
+    // 删除文档
+    @Test
+    public void testDeleteDocument() throws Exception {
+        DeleteRequest request = new DeleteRequest(INDEX_NAME, TEST_DOCUMENT_ID.toString());
+        restHighLevelClient.delete(request, RequestOptions.DEFAULT);
+    }
+
+
 
 
 
