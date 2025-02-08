@@ -1,6 +1,9 @@
 package org.lb.studyelasticsearch.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,14 +16,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author ruoyi
  * @date 2025-02-06
  */
-@Getter
-@Setter
-@ToString
+@Data
+@TableName("tb_hotel")
 public class TbHotel
 {
     private static final long serialVersionUID = 1L;
 
     /** 酒店id */
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /** 酒E名称;例: 7天酒店 */
