@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectTbHotelVo">
-        select id, name, address, price, score, brand, city, star_name, business, latitude, Longitude, pic from tb_hotel
+        select id, name, address, price, score, brand, city, star_name, business, latitude, longitude, pic from tb_hotel
     </sql>
 
     <select id="selectTbHotelList" parameterType="org.lb.studyelasticsearch.pojo.TbHotel" resultMap="TbHotelResult">
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="starName != null  and starName != ''"> and star_name like concat('%', #{starName}, '%')</if>
             <if test="business != null  and business != ''"> and business = #{business}</if>
             <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
-            <if test="Longitude != null  and Longitude != ''"> and Longitude = #{Longitude}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
             <if test="pic != null  and pic != ''"> and pic = #{pic}</if>
         </where>
     </select>
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="starName != null">star_name,</if>
             <if test="business != null">business,</if>
             <if test="latitude != null and latitude != ''">latitude,</if>
-            <if test="Longitude != null and Longitude != ''">Longitude,</if>
+            <if test="longitude != null and longitude != ''">Longitude,</if>
             <if test="pic != null">pic,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="starName != null">star_name = #{starName},</if>
             <if test="business != null">business = #{business},</if>
             <if test="latitude != null and latitude != ''">latitude = #{latitude},</if>
-            <if test="Longitude != null and Longitude != ''">Longitude = #{Longitude},</if>
+            <if test="longitude != null and longitude != ''">longitude = #{longitude},</if>
             <if test="pic != null">pic = #{pic},</if>
         </trim>
         where id = #{id}

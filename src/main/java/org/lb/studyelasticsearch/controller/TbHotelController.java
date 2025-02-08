@@ -38,7 +38,7 @@ public class TbHotelController
     /**
      * 查询【请填写功能名称】列表
      */
-    @PostMapping("/list")
+    @GetMapping("/list")
     @ResponseBody
     public AjaxResult list(TbHotel tbHotel)
     {

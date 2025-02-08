@@ -1,3 +1,5 @@
+package org.lb.studyelasticsearch;
+
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.client.RequestOptions;
@@ -12,6 +14,9 @@ import org.lb.studyelasticsearch.constant.HotelConstant;
 
 import static org.lb.studyelasticsearch.constant.HotelConstant.HOST_URL;
 
+/**
+ * @description: RestClient索引库curd测试
+ **/
 public class HotelIndexTest {
     private RestHighLevelClient restHighLevelClient;
 

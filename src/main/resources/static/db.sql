@@ -11,7 +11,7 @@ CREATE TABLE tb_hotel
     star_name varchar(16)  DEFAULT NULL COMMENT '酒店星级，从低到是：1星到5星，1钻到5钻',
     business  varchar(255) DEFAULT NULL COMMENT '商圈; 例: 虹桥',
     latitude  varchar(32)  NOT NULL COMMENT '度;例: 31.2497',
-    Longitude varchar(32)  not null COMMENT '经度;例: 120.3925',
+    longitude varchar(32)  not null COMMENT '经度;例: 120.3925',
     pic       varchar(255) default null COMMENT '酒店图片；例： / img / 1.jpg',
     PRIMARY key (id)
 ) engine = InnoDB default CHARSET = utf8mb4;
