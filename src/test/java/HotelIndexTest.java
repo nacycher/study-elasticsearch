@@ -1,9 +1,9 @@
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.client.indices.*;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,11 +29,24 @@ public class HotelIndexTest {
         request.source(HotelConstant.MAPPING_TEMPLATE, XContentType.JSON);
         // 3. 发送请求
         CreateIndexResponse response = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);
-        // 4. 处理响应
-        System.out.println(response);
     }
 
+    // 删除索引
+    @Test
+    public void testDeleteIndex() throws Exception {
+        // 1. 创建请求对象
+        DeleteIndexRequest request = new DeleteIndexRequest(HotelConstant.INDEX_NAME);
+        // 2. 发送请求
+        restHighLevelClient.indices().delete(request, RequestOptions.DEFAULT);
+    }
 
+    // 判断索引是否存在
+    @Test
+    public void testIndexExists() throws Exception {
+        GetIndexRequest request = new GetIndexRequest(HotelConstant.INDEX_NAME);
+        boolean exists = restHighLevelClient.indices().exists(request, RequestOptions.DEFAULT);
+        System.out.println(exists ? "索引库已存在!" : "索引库不存在! " );
+    }
 
 
 
