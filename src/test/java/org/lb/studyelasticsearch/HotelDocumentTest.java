@@ -2,6 +2,7 @@ package org.lb.studyelasticsearch;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -20,6 +21,8 @@ import org.lb.studyelasticsearch.pojo.vo.TbHotelDocVo;
 import org.lb.studyelasticsearch.service.ITbHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.lb.studyelasticsearch.constant.HotelConstant.HOST_URL;
 import static org.lb.studyelasticsearch.constant.HotelConstant.INDEX_NAME;
@@ -96,7 +99,23 @@ public class HotelDocumentTest {
         restHighLevelClient.delete(request, RequestOptions.DEFAULT);
     }
 
+    // 批量添加文档
+    @Test
+    public void testBatchCreateDocument() throws Exception {
+        // 批量查询酒店数据
+        List<TbHotel> tbHotelList = hotelService.selectTbHotelList(null);
 
+        // 1. 准备请求对象bulkRequest
+        BulkRequest request = new BulkRequest();
+        // 2. 批量添加request(可以是新增request、修改request、删除request)
+        tbHotelList.forEach(tbHotel -> {
+            TbHotelDocVo tbHotelDocVo = new TbHotelDocVo(tbHotel);
+            request.add(new IndexRequest(INDEX_NAME).id(tbHotelDocVo.getId().toString())
+                    .source(JSON.toJSONString(tbHotelDocVo), XContentType.JSON));
+        });
+        // 3.发送请求
+        restHighLevelClient.bulk(request, RequestOptions.DEFAULT);
+    }
 
 
 
