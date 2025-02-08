@@ -12,4 +12,4 @@ docker run -d \
 
 ### 使用devtools
 使用devtools编写DSL语句请求es
-![](./images/elasticsearch-06-01.png)
+![](../images/part1/elasticsearch-06-01.png)

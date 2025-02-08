@@ -1,5 +1,5 @@
 ## 初始化RestClient
-![](./images/elasticsearch-16-02.png)
+![](../images/part1/elasticsearch-16-02.png)
 
 导入依赖
 ```xml
@@ -12,4 +12,4 @@
 - 查看maven dependency发现引入的elasticsearch版本为8.0,  
 但是我们使用的是7.12.1版本的es,   
 springBoot的父工程帮我们管理了整个版本，我们需要在子工程中重写版本
-![](./images/elasticsearch-16-01.png)
+![](../images/part1/elasticsearch-16-01.png)

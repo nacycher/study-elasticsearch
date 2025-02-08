@@ -3,4 +3,4 @@
 
 
 ### 案例
-![](./images/elasticsearch-14-01.png)
+![](../images/part1/elasticsearch-14-01.png)
