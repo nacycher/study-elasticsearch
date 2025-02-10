@@ -1,0 +1,110 @@
+# 查询文档数据
+GET /hotel/_doc/5030
+
+# 批量查询
+GET /hotel/_search
+
+
+# 全文检索查询
+GET /hotel/_search
+{
+"query": {
+"match": {
+"all": "外滩酒店"
+}
+}
+}
+
+# muti match查询
+GET /hotel/_search
+{
+"query": {
+"multi_match": {
+"query": "外滩酒店",
+"fields": ["brand", "business", "name"]
+}
+}
+}
+
+# 精确查询-term
+GET /hotel/_search
+{
+"query": {
+"term": {
+"city": {
+"value": "济南"
+}
+}
+}
+}
+
+# 精确查询-range
+GET /hotel/_search
+{
+"query": {
+"range": {
+"price": {
+"gte": 329,
+"lte": 600
+}
+}
+}
+}
+
+# 地理查询-geo_bounding_box
+GET /hotel/_search
+{
+"query": {
+"geo_bounding_box": {
+"location": {
+"top_left": {
+"lat": "31.5",
+"lon": "121.5"
+},
+"bottom_right": {
+"lat": "30.9",
+"lon": "121.7"
+}
+}
+}
+}
+}
+
+# 地理查询-geo_distance
+GET /hotel/_search
+{
+"query": {
+"geo_distance": {
+"distance": "15km",
+"location": "31.21, 121.5"
+}
+}
+}
+
+# 设置相关性算分
+GET /hotel/_search
+{
+"query": {
+"function_score": {
+"query": {
+"match": {
+"all": "酒店"
+}
+},
+"functions": [
+{
+"filter": {
+"term": {
+"brand": "如家"
+}
+},
+"weight": 10
+}
+],
+"boost_mode": "sum"
+}
+}
+}
+
+
+
