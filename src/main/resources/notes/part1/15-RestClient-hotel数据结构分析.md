@@ -22,7 +22,7 @@ geo_point 存储经纬度, geo_shape 存储多边形
 
 
 
-```kibana
+```DSL
 
 # 酒店的mappping
 PUT /hotel
