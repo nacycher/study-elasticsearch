@@ -23,6 +23,9 @@ import java.util.Objects;
 import static org.lb.studyelasticsearch.constant.HotelConstant.HOST_URL;
 import static org.lb.studyelasticsearch.constant.HotelConstant.INDEX_NAME;
 
+/**
+ * @description: RestClient搜索测试
+ */
 public class HotelSearchTest {
     private RestHighLevelClient restHighLevelClient;
 
@@ -160,7 +163,7 @@ public class HotelSearchTest {
         System.out.println(response);
     }
 
-    public void printSearchResult(@NonNull SearchResponse response) {
+    private void printSearchResult(@NonNull SearchResponse response) {
         // 解析响应-查询总数
         long totalHits = Objects.requireNonNull(response.getHits().getTotalHits()).value;
         System.out.println("共查询到" + totalHits + "条数据:");
