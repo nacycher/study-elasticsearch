@@ -1,7 +1,12 @@
 package org.lb.studyelasticsearch.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.lb.studyelasticsearch.pojo.TbHotel;
+import org.lb.studyelasticsearch.pojo.dto.HotelKeySearchDTO;
+import org.lb.studyelasticsearch.pojo.vo.PageResultVO;
+import org.lb.studyelasticsearch.pojo.vo.TbHotelDocVO;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,6 +32,14 @@ public interface ITbHotelService
      * @return 【请填写功能名称】集合
      */
     public List<TbHotel> selectTbHotelList(TbHotel tbHotel);
+
+    /**
+     * es - 根据关键字查询酒店列表
+     *
+     * @param hotelKeySearchDTO 【请填写功能名称】
+     * @return 【请填写功能名称】集合
+     */
+    public PageResultVO selectTbHotelListByEsKey(HotelKeySearchDTO hotelKeySearchDTO);
 
     /**
      * 新增【请填写功能名称】

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lb.studyelasticsearch.constant.HotelConstant;
 import org.lb.studyelasticsearch.pojo.TbHotel;
-import org.lb.studyelasticsearch.pojo.vo.TbHotelDocVo;
+import org.lb.studyelasticsearch.pojo.vo.TbHotelDocVO;
 import org.lb.studyelasticsearch.service.ITbHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,7 +49,7 @@ public class HotelDocumentTest {
         // 根据id查询酒店数据
         TbHotel tbHotel = hotelService.selectTbHotelById(TEST_DOCUMENT_ID);
         // 转换为文档对象
-        TbHotelDocVo tbHotelDocVo = new TbHotelDocVo(tbHotel);
+        TbHotelDocVO tbHotelDocVo = new TbHotelDocVO(tbHotel);
 
         // 1.创建请求对象
         IndexRequest request = new IndexRequest(HotelConstant.INDEX_NAME).id(tbHotelDocVo.getId().toString());
@@ -69,7 +69,7 @@ public class HotelDocumentTest {
         // 3.获取文档内容
         String json = response.getSourceAsString();
         // 4. 反序列化
-        TbHotelDocVo tbHotelDocVo = JSON.parseObject(json, TbHotelDocVo.class);
+        TbHotelDocVO tbHotelDocVo = JSON.parseObject(json, TbHotelDocVO.class);
 
         System.out.println(tbHotelDocVo);
     }
@@ -109,7 +109,7 @@ public class HotelDocumentTest {
         BulkRequest request = new BulkRequest();
         // 2. 批量添加request(可以是新增request、修改request、删除request)
         tbHotelList.forEach(tbHotel -> {
-            TbHotelDocVo tbHotelDocVo = new TbHotelDocVo(tbHotel);
+            TbHotelDocVO tbHotelDocVo = new TbHotelDocVO(tbHotel);
             request.add(new IndexRequest(INDEX_NAME).id(tbHotelDocVo.getId().toString())
                     .source(JSON.toJSONString(tbHotelDocVo), XContentType.JSON));
         });

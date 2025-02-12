@@ -1,7 +1,7 @@
 package org.lb.studyelasticsearch.constant;
 
 public class HotelConstant {
-    public static final String HOST_URL = "http://192.168.121.139:9200";
+    public static final String HOST_URL = "http://192.168.121.140:9200";
     public static final String INDEX_NAME = "hotel";
     public static final String MAPPING_TEMPLATE = "{\n" +
             "  \"mappings\" : {\n" +

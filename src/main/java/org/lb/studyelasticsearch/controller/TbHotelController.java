@@ -3,16 +3,15 @@ package org.lb.studyelasticsearch.controller;
 import java.util.List;
 
 import org.lb.studyelasticsearch.pojo.TbHotel;
+import org.lb.studyelasticsearch.pojo.dto.HotelKeySearchDTO;
+import org.lb.studyelasticsearch.pojo.vo.PageResultVO;
+import org.lb.studyelasticsearch.pojo.vo.TbHotelDocVO;
 import org.lb.studyelasticsearch.service.ITbHotelService;
 import org.lb.studyelasticsearch.utils.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 【请填写功能名称】Controller
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2025-02-06
  */
 @Controller
-@RequestMapping("/system/hotel")
+@RequestMapping("/hotel")
 public class TbHotelController
 {
     private String prefix = "system/hotel";
@@ -38,12 +37,11 @@ public class TbHotelController
     /**
      * 查询【请填写功能名称】列表
      */
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
-    public AjaxResult list(TbHotel tbHotel)
+    public PageResultVO list(@RequestBody HotelKeySearchDTO hotelKeySearchDTO)
     {
-        List<TbHotel> list = tbHotelService.selectTbHotelList(tbHotel);
-        return AjaxResult.success(list);
+        return tbHotelService.selectTbHotelListByEsKey(hotelKeySearchDTO);
     }
 
 

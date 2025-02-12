@@ -1,14 +1,12 @@
 package org.lb.studyelasticsearch.pojo.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.lb.studyelasticsearch.pojo.TbHotel;
 
 @Data
 @NoArgsConstructor
-public class TbHotelDocVo {
+public class TbHotelDocVO {
     /** 酒店id */
     private Long id;
 
@@ -42,7 +40,10 @@ public class TbHotelDocVo {
     /** 酒店图片；例： / img / 1.jpg */
     private String pic;
 
-    public TbHotelDocVo(TbHotel tbHotel) {
+    /** 排序结果显示距离值 */
+    private Object distance;
+
+    public TbHotelDocVO(TbHotel tbHotel) {
         this.id = tbHotel.getId();
         this.name = tbHotel.getName();
         this.address = tbHotel.getAddress();
